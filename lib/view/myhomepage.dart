@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatelessWidget {
@@ -23,24 +24,16 @@ class MyHomePage extends StatelessWidget {
                 String ikinci = t2.text;
                 var data1 = utf8.encode(ilk);
                 var data2 = utf8.encode(ikinci);
-                if(data1.length == data2.length){
-                  for(int i=0; i<data1.length;i++){
-                    if(data1[i] == data2[i]){
-                      if(i == data1.length-1){
-                        print("Aynı");
-                      };
-                    }
-                    else{
-                      print("Farklı");
-                      i = data1.length;
-                    };
-                  };
+                var hash1 = sha256.convert(data1);
+                var hash2 = sha256.convert(data2);
+                if(hash1==hash2){
+                  print("Aynı");
                 }
                 else{
                   print("Farklı");
                 };
-                print(data1);
-                print(data2);
+                print(hash1);
+                print(hash2);
               },
             ),
           ],
